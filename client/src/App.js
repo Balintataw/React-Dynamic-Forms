@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route path="/ShowField" exact component={ShowField} />
+          <Route path="/" exact component={ShowField} />
           <Route path="/AddField" exact component={AddField} />
         </div>
       </Router>
