@@ -17,31 +17,50 @@ export class AddField extends Component {
   handleSelectChange = (e) => {
     const value = e.target.value
     this.setState({
-        selectValue: value
+        [e.target.name]: value
     })
     if (value === 'Select') {
         console.log('worked')
-        this.toggleHidden()
+        // this.toggleHidden()
+
     }
   }
 
-  toggleHidden = (e) => {
+  handleOptionChange = (e) => {
+      const value = e.target.value
+      console.log(value)
       this.setState({
-          isHidden: !this.state.isHidden
+          [e.target.name]: value
       })
+      console.log(this.state.options)
   }
+
+  addToOptions = (e) => {
+      e.preventDefault()
+    this.state.options.push(this.state.optionValue)
+    this.state.optionValue = ''
+    console.log(this.state.options)
+  } 
+
+//   toggleHidden = (e) => {
+//       this.setState({
+//           isHidden: !this.state.isHidden
+//       })
+//   }
 
   render() {
     return (
       <div>
           <form onSubmit={this.handleFormSubmit} id="form-container">
              <div>
-               <select onChange={this.handleSelectChange} value={this.state.selectValue} type="select" className="inputs" label="Field Type" id="field-type" placeholder="Field Type">
+               <select onChange={this.handleSelectChange} value={this.state.selectValue} type="select" className="inputs" label="Field Type" id="field-type" placeholder="Field Type" name="selectValue">
                 <option value="txt">Text</option>
                 <option>Select</option>
                 <option>Text Area</option>
                </select>
-               {!this.state.isHidden && <Child optionValue={this.state.optionValue}/>}
+               <input onChange={this.handleOptionChange} value={this.state.optionValue} type="text" label="Field Option" id="field-option" placeholder="Option" name="optionValue"/>
+               <button onClick={this.addToOptions} id="addOption">+</button>
+               {/* {!this.state.isHidden && <Child optionValue={this.state.optionValue}/>} */}
              </div>
              <div>
                <input type="text" className="inputs" label="Field Label" id="field-label" placeholder="Field Label"/>
@@ -62,9 +81,9 @@ export class AddField extends Component {
   }
 };
 
-const Child = () => {
-    return <input type="text"   label="Field Option" id="field-option" placeholder="Option" />
-    {console.log(this.props.optionValue)}
-}
+// const Child = () => {
+//     return <input onChange={this.handleOptionChange} type="text" label="Field Option" id="field-option" placeholder="Option" />
+//     {console.log(this.props.optionValue)}
+// }
 
 export default AddField;
